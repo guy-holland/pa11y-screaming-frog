@@ -1,5 +1,6 @@
 const { exec } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 // Get the URL from command line arguments
 const url = process.argv[2];
@@ -10,10 +11,10 @@ if (!url) {
 
 // Determine the path to the repository directory
 const repositoryPath = path.resolve(__dirname);
-const csvFilePath = path.join(repositoryPath, 'internal_all.csv'); // Adjust if necessary
+const csvFilePath = path.join(repositoryPath, 'internal_html.csv');
 
 // Define the Screaming Frog command
-const screamingFrogCommand = `screamingfrogseospider --headless --crawl ${url} --output-folder "${repositoryPath}" --export-tabs "Internal:HTML" --export-format csv`;
+const screamingFrogCommand = `screamingfrogseospider --headless --crawl ${url} --output-folder "${repositoryPath}" --overwrite --export-tabs "Internal:HTML" --export-format csv`;
 
 // Function to execute a command and return a Promise
 function execPromise(command) {

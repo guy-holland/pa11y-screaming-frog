@@ -30,7 +30,7 @@ So we first need to crawl the site and export internal_html.csv to the project's
 Linux
 
 ```sh
-screamingfrogseospider --headless --crawl https://example.com/ --output-folder "/path/to/repository" --export-tabs "Internal:HTML" --export-format csv
+screamingfrogseospider --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
 Windows
@@ -38,13 +38,13 @@ Windows
 ```sh
 cd "C:\Program Files (x86)\Screaming Frog SEO Spider"
 
-ScreamingFrogSEOSpiderCLI.exe --headless --crawl https://example.com/ --output-folder "/path/to/repository" --export-tabs "Internal:HTML" --export-format csv
+ScreamingFrogSEOSpiderCLI.exe --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
 macOS (untested)
 
 ```sh
-open "/Applications/Screaming Frog SEO Spider.app" --headless --crawl https://example.com/ --output-folder "/path/to/repository" --export-tabs "Internal:HTML" --export-format csv
+open "/Applications/Screaming Frog SEO Spider.app" --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
 See the [SEO Spider documentation](https://www.screamingfrog.co.uk/seo-spider/user-guide/general/#commandlineoptions) for more command line options but note that the --export-format needs to be csv and the --export-tabs option will change the filename of the csv so this would need to be updated in the script if changed.
