@@ -21,7 +21,7 @@ npm install
 
 ## Usage
 
-The script runs pa11y on the SEO Spider output file internal_html.csv and outputs the results as pa11y_results.csv
+The script runs pa11y on the each url in the SEO Spider output file internal_html.csv and outputs the results as pa11y_results.csv
 
 So we first need to crawl the site and export internal_html.csv to the project's root directory:
 
@@ -68,5 +68,13 @@ Then run the script:
 
 ```sh
 node pa11y.js
+```
+
+### (Currently Linux only) Crawl script
+
+The crawl script executes the SEO Spider crawl when run with the site url as a parameter, then runs the pa11y script once the crawl is complete:
+
+```sh
+node crawl.js https://example.com/
 ```
 
