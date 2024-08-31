@@ -1,9 +1,11 @@
 This is a tool that runs the [pa11y](https://github.com/pa11y/pa11y) web accessibility tester on urls from a [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/) crawl and creates a csv report with all issues detected.
 
+It's not a CI or automation tool but is more intended for accessibility audits or to supplement tech SEO audits using Screaming Frog, which is lacking in native accessibility features.
+
 ### Prerequisites
 
 * Screaming Frog SEO Spider, licenced and with crawl config set up as desired
-* npm
+* node.js and npm
 
 ### Installation
 
@@ -37,7 +39,8 @@ Windows
 
 ```sh
 cd "C:\Program Files (x86)\Screaming Frog SEO Spider"
-
+```
+```sh
 ScreamingFrogSEOSpiderCLI.exe --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
@@ -77,4 +80,11 @@ The crawl script executes the SEO Spider crawl when run with the site url as a p
 ```sh
 node crawl.js https://example.com/
 ```
+
+
+## To do
+* Cross platform crawl script
+* Include console logging in crawl script
+* Options for csv directory, filenames, multiple files
+* Explore pa11y options
 
