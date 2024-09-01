@@ -3,6 +3,7 @@ const csv = require('csv-parser');
 const pa11y = require('pa11y');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
+
 // Array to hold the URLs
 const urls = [];
 
@@ -76,7 +77,7 @@ async function runPa11yOnUrls() {
                         issueCode: issue.code,
                         context: issue.context,
                         selector: issue.selector,
-                        type: issue.type,
+                        type: issue.type || 'Unknown', // Default to 'Unknown' if type is not available
                         standard: 'WCAG2AA'
                     });
                 });
@@ -88,13 +89,13 @@ async function runPa11yOnUrls() {
                         issueCode: '',
                         context: '',
                         selector: '',
-                        type: '',
+                        type: 'None',
                         standard: 'WCAG2AA'
                     });
                 }
 
                 console.log(`Running Pa11y (Axe) on ${url}`);
-                const axeResults = await runPa11y(url, 'WCAG2AA'); // Note: Axe is part of Pa11y, use the same standard
+                const axeResults = await runPa11y(url, 'WCAG2AA'); // Axe results handled by Pa11y
                 axeResults.issues.forEach(issue => {
                     records.push({
                         url: url,
@@ -102,7 +103,7 @@ async function runPa11yOnUrls() {
                         issueCode: issue.code,
                         context: issue.context,
                         selector: issue.selector,
-                        type: issue.type,
+                        type: issue.type || 'Unknown', // Default to 'Unknown' if type is not available
                         standard: 'Axe'
                     });
                 });
@@ -114,7 +115,7 @@ async function runPa11yOnUrls() {
                         issueCode: '',
                         context: '',
                         selector: '',
-                        type: '',
+                        type: 'None',
                         standard: 'Axe'
                     });
                 }
