@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "axe-core": "^4.10.0",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
-    "pa11y": "^8.0.0"
+    "pa11y": "^8.0.0",
+    "puppeteer": "^23.2.1"
   }
 }
