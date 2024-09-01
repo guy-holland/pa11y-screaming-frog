@@ -3,7 +3,6 @@ const csv = require('csv-parser');
 const pa11y = require('pa11y');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const puppeteer = require('puppeteer');
-const axeCore = require('axe-core');
 
 // Array to hold the URLs
 const urls = [];
@@ -52,23 +51,37 @@ function readUrlsFromCsv(filePath) {
 async function runAxe(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(url);
+    try {
+        await page.goto(url, { waitUntil: 'networkidle0' }); // Wait for network to be idle
 
-    // Inject axe-core into the page
-    await page.addScriptTag({ content: axeCore.source });
-    const axeResults = await page.evaluate(async () => {
-        return await axe.run();
-    });
+        // Inject axe-core into the page
+        await page.addScriptTag({ url: 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.3.5/axe.min.js' });
 
-    await browser.close();
+        // Wait for axe-core to be loaded
+        await page.waitForFunction(() => typeof window.axe !== 'undefined');
 
-    return axeResults.violations.map(violation => ({
-        message: violation.description,
-        code: violation.id,
-        context: violation.nodes.map(node => node.html).join(', '),
-        selector: violation.nodes.map(node => node.target.join(', ')),
-        type: violation.impact
-    }));
+        // Run axe-core within the page context
+        const axeResults = await page.evaluate(async () => {
+            if (typeof window.axe !== 'undefined') {
+                return await window.axe.run();
+            } else {
+                return { violations: [] }; // Return empty results if axe is not loaded
+            }
+        });
+
+        return axeResults.violations.map(violation => ({
+            message: violation.description,
+            code: violation.id,
+            context: violation.nodes.map(node => node.html).join(', '),
+            selector: violation.nodes.map(node => node.target.join(', ')),
+            type: violation.impact
+        }));
+    } catch (error) {
+        console.error(`Failed to run Axe on ${url}:`, error);
+        return [];
+    } finally {
+        await browser.close();
+    }
 }
 
 // Function to run Pa11y on all URLs and save results to CSV
@@ -140,7 +153,7 @@ async function runPa11yOnUrls() {
         }
 
         await csvWriter.writeRecords(records);
-        console.log('Pa11y results have been written to pa11y_results.csv');
+        console.log('Pa11y and Axe results have been written to pa11y_results.csv');
 
     } catch (error) {
         console.error('Error:', error);
