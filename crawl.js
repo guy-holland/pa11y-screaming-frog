@@ -4,8 +4,8 @@ const fs = require('fs');
 
 // Define the path to the Screaming Frog executable based on your OS
 const screamingFrogPath = 'screamingfrogseospider'; // Linux
-// const screamingFrogExecutable = '"C:\\Program Files (x86)\\Screaming Frog SEO Spider\\ScreamingFrogSEOSpiderCLI.exe"'; // Windows
-// const screamingFrogExecutable = 'open "/Applications/Screaming Frog SEO Spider.app"' // macOS
+// const screamingFrogPath = 'C:\\Program Files (x86)\\Screaming Frog SEO Spider\\ScreamingFrogSEOSpiderCLI.exe'; // Windows
+// const screamingFrogPath = 'open "/Applications/Screaming Frog SEO Spider.app"' // macOS
 
 // Get the URL from command line arguments
 const url = process.argv[2];
