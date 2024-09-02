@@ -5,3 +5,4 @@ npm-debug.log
 .DS_Store
 internal_html.csv
 pa11y_results.csv
+.~lock.pa11y_results.csv#
