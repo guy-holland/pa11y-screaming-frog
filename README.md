@@ -2,7 +2,7 @@ This is a tool that runs the [pa11y](https://github.com/pa11y/pa11y) web accessi
 
 It's not a CI or automation tool but is more intended for accessibility audits or to supplement tech SEO audits using Screaming Frog, which is lacking in native accessibility features.
 
-It uses Pa11y's default runner set to WCAG2AA. There is also an alternative script in the pa11y-axe branch which runs both the default runner and axe-core, and combines them in the same CSV. This is an experimental feature that may not work on all sites as axe does not play nicely with CSP headers.
+It uses Pa11y's default runner set to WCAG2AA. There is also an alternative script in the [pa11y-axe](https://github.com/guy-holland/pa11y-screaming-frog/tree/pa11y-axe) branch which runs both the default runner and axe-core, and combines them in the same CSV. This is an experimental feature that may not work on all sites as axe does not play nicely with CSP headers.
 
 ### Prerequisites
 
@@ -42,15 +42,19 @@ node crawl.js https://example.com/
 ```
 Not using Linux? Check the screamingFrogPath at the top of crawl.js is defined correctly for your OS.
 
-### With SEO Spider CLI
+### Manual crawl with SEO Spider CLI
 
-Linux
+You may want to check/edit the crawl results or use different crawl settings from the script defaults.
+
+To do this, run the crawl manually and export the Internal:HTML report to the project directory.
+
+**Linux**
 
 ```sh
 screamingfrogseospider --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
-Windows
+**Windows**
 
 ```sh
 cd "C:\Program Files (x86)\Screaming Frog SEO Spider"
@@ -59,7 +63,7 @@ cd "C:\Program Files (x86)\Screaming Frog SEO Spider"
 ScreamingFrogSEOSpiderCLI.exe --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
 ```
 
-macOS (untested)
+**macOS (untested)**
 
 ```sh
 open "/Applications/Screaming Frog SEO Spider.app" --headless --crawl https://example.com/ --output-folder "/path/to/repository" --overwrite --export-tabs "Internal:HTML" --export-format csv
@@ -73,7 +77,7 @@ Once the crawl is complete run the script:
 node pa11y.js
 ```
 
-### Export via SEO Spider GUI
+### Manual Crawl via SEO Spider GUI
 
 If using the desktop GUI,:
 
@@ -89,8 +93,8 @@ node pa11y.js
 ```
 
 ## To do
-* Cross platform crawl script
-* Include console logging in crawl script
+* See if crawl script can run out the box on every OS without modification
 * Options for csv directory, filenames, multiple files
-* Explore pa11y options
+* Add more pa11y options
+* Docker?
 
