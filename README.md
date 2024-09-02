@@ -2,6 +2,8 @@ This is a tool that runs the [pa11y](https://github.com/pa11y/pa11y) web accessi
 
 It's not a CI or automation tool but is more intended for accessibility audits or to supplement tech SEO audits using Screaming Frog, which is lacking in native accessibility features.
 
+It uses Pa11y's default runner set to WCAG2AA. There is also an alternative script in the pa11y-axe branch which runs both the default runner and axe-core, and combines them in the same CSV. This is an experimental feature that may not work on all sites as axe does not play nicely with CSP headers.
+
 ### Prerequisites
 
 * Screaming Frog SEO Spider, licenced and with crawl config set up as desired
@@ -21,11 +23,24 @@ git clone https://github.com/guy-holland/pa11y-screaming-frog
 npm install
 ```
 
+3. Check the Screaming Frog executable is defined correctly for your OS at the top of crawl.js
+
+This is OS specific so uncomment the line for your OS. Defaults to Linux so should only need changing for Windows and MacOS.
+
 ## Usage
 
 The script runs pa11y on the each url in the SEO Spider output file internal_html.csv and outputs the results as pa11y_results.csv
 
-So we first need to crawl the site and export internal_html.csv to the project's root directory:
+So we first need to crawl the site and export internal_html.csv to the project's root directory.
+
+### Automated Crawl script
+
+The easiest method is to use the automated crawl script. This executes the SEO Spider crawl when run with the site url as a parameter, then runs the pa11y script once the crawl is complete:
+
+```sh
+node crawl.js https://example.com/
+```
+Not using Linux? Check the screamingFrogPath at the top of crawl.js is defined correctly for your OS.
 
 ### With SEO Spider CLI
 
@@ -72,15 +87,6 @@ Then run the script:
 ```sh
 node pa11y.js
 ```
-
-### (Currently Linux only) Crawl script
-
-The crawl script executes the SEO Spider crawl when run with the site url as a parameter, then runs the pa11y script once the crawl is complete:
-
-```sh
-node crawl.js https://example.com/
-```
-
 
 ## To do
 * Cross platform crawl script
