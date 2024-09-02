@@ -46,7 +46,7 @@ Not using Linux? Check the screamingFrogPath at the top of crawl.js is defined c
 
 You may want to check/edit the crawl results or use different crawl settings from the script defaults.
 
-To do this, run the crawl manually and export the Internal:HTML report to the project directory.
+To do this, run the crawl manually and export the Internal:HTML report to the project directory, then run the pa11y.js script.
 
 **Linux**
 
